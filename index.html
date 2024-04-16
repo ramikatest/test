@@ -497,13 +497,28 @@ setTimeout(showModal, 2 * 24 * 60 * 60 * 1000 - timeDifference);
 }
 });
 </script>
-    <script>
-    window.addEventListener('load', function () {
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to show the preloader
+        function showPreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.display = 'flex'; // Show the preloader
+        }
+
+        // Function to hide the preloader
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.display = 'none'; // Hide the preloader
+        }
+
+        // Show the preloader after a delay of 4 seconds (4000 milliseconds)
+        setTimeout(showPreloader, 4000);
+
         // When the page is fully loaded, hide the preloader
-        var preloader = document.querySelector('.preloader');
-        preloader.style.display = 'none';
+        window.addEventListener('load', hidePreloader);
     });
 </script>
+
 
 </body>
 </html>
