@@ -498,27 +498,33 @@ setTimeout(showModal, 2 * 24 * 60 * 60 * 1000 - timeDifference);
 });
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Function to show the preloader
-        function showPreloader() {
-            var preloader = document.querySelector('.preloader');
-            preloader.style.display = 'flex'; // Show the preloader
-        }
+    // Function to show the preloader
+    function showPreloader() {
+        var preloader = document.querySelector('.preloader');
+        preloader.style.display = 'flex'; // Show the preloader
+    }
 
-        // Function to hide the preloader
-        function hidePreloader() {
-            var preloader = document.querySelector('.preloader');
-            preloader.style.display = 'none'; // Hide the preloader
-        }
+    // Function to hide the preloader
+    function hidePreloader() {
+        var preloader = document.querySelector('.preloader');
+        preloader.style.display = 'none'; // Hide the preloader
+    }
 
-        // Show the preloader after a delay of 4 seconds (4000 milliseconds)
-        setTimeout(showPreloader, 4000);
+    // Show the preloader immediately
+    showPreloader();
 
-        // When the page is fully loaded, hide the preloader
-        window.addEventListener('load', hidePreloader);
-    });
+    // Wait for an additional 4 seconds (4000 milliseconds)
+    setTimeout(function() {
+        // When the additional time has passed, hide the preloader
+        hidePreloader();
+
+        // Now you can show the full content
+        document.querySelector('.page-wrapper').style.display = 'block';
+    }, 4000);
+
+    // When the page is fully loaded, hide the preloader (in case it hasn't already been hidden)
+    window.addEventListener('load', hidePreloader);
 </script>
-
 
 </body>
 </html>
