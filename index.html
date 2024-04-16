@@ -5,60 +5,60 @@
 <!-- Title -->
 <title>Ramika Safaris & Tours</title>
 <script defer="" type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
-    
-    // Your web app's Firebase configuration
-   const firebaseConfig = {
-    apiKey: "AIzaSyCOVJY6BUHUBmzCT0fTwCFXjga21UCgliI",
-    authDomain: "ramikatest-ff97c.firebaseapp.com",
-    databaseURL: "https://ramikatest-ff97c-default-rtdb.firebaseio.com",
-    projectId: "ramikatest-ff97c",
-    storageBucket: "ramikatest-ff97c.appspot.com",
-    messagingSenderId: "619432243067",
-    appId: "1:619432243067:web:3241b65faa996b731cd7de"
-  };
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    auth.languageCode = "en";
-    const provider = new GoogleAuthProvider();
-    const googleLogin = document.getElementById("google");
-    const userNameElement = document.getElementById("user-name");
-    const userEmailElement = document.getElementById("user-email");
-    const userProfilePicElement = document.getElementById("user-profile-pic");
-    const authenticatedModal = document.getElementById("authenticated-modal");
-    const unauthenticatedModal = document.getElementById("unauthenticated-modal");
+// Your web app's Firebase configuration
+const firebaseConfig = {
+apiKey: "AIzaSyCOVJY6BUHUBmzCT0fTwCFXjga21UCgliI",
+authDomain: "ramikatest-ff97c.firebaseapp.com",
+databaseURL: "https://ramikatest-ff97c-default-rtdb.firebaseio.com",
+projectId: "ramikatest-ff97c",
+storageBucket: "ramikatest-ff97c.appspot.com",
+messagingSenderId: "619432243067",
+appId: "1:619432243067:web:3241b65faa996b731cd7de"
+};
 
-    googleLogin.addEventListener("click", function () {
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const user = result.user;
-                console.log(user);
-                window.location.href = "https://ramikatest.github.io/test/index.html";
-            }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-            });
-    });
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+auth.languageCode = "en";
+const provider = new GoogleAuthProvider();
+const googleLogin = document.getElementById("google");
+const userNameElement = document.getElementById("user-name");
+const userEmailElement = document.getElementById("user-email");
+const userProfilePicElement = document.getElementById("user-profile-pic");
+const authenticatedModal = document.getElementById("authenticated-modal");
+const unauthenticatedModal = document.getElementById("unauthenticated-modal");
 
-    // Listen for authentication state changes
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // User is signed in
-            userNameElement.textContent = user.displayName;
-            userEmailElement.textContent = user.email;
-            userProfilePicElement.src = user.photoURL;
-            authenticatedModal.style.display = "block";
-            unauthenticatedModal.style.display = "none";
-        } else {
-            // User is signed out
-            authenticatedModal.style.display = "none";
-            unauthenticatedModal.style.display = "block";
-        }
-    });
+googleLogin.addEventListener("click", function () {
+signInWithPopup(auth, provider)
+.then((result) => {
+const credential = GoogleAuthProvider.credentialFromResult(result);
+const user = result.user;
+console.log(user);
+window.location.href = "https://ramikatest.github.io/test/index.html";
+}).catch((error) => {
+const errorCode = error.code;
+const errorMessage = error.message;
+});
+});
+
+// Listen for authentication state changes
+onAuthStateChanged(auth, (user) => {
+if (user) {
+// User is signed in
+userNameElement.textContent = user.displayName;
+userEmailElement.textContent = user.email;
+userProfilePicElement.src = user.photoURL;
+authenticatedModal.style.display = "block";
+unauthenticatedModal.style.display = "none";
+} else {
+// User is signed out
+authenticatedModal.style.display = "none";
+unauthenticatedModal.style.display = "block";
+}
+});
 </script>
 
 <!-- Meta -->
@@ -130,20 +130,21 @@ font-size: 24px;
 </div>
 <div class="mid-content">
 <a>
-
+<span id="unauthenticated-modal" data-bs-toggle="offcanvas" data-bs-target="#onetap" aria-controls="onetap"  style="margin-left: 50%;background-color: black;color: white;padding: 7px;border-radius: 20px;font-weight: 400;">Get Started <img src="google-mail.svg"> </span>
 </a>
 </div>
 <div class="right-content">
+
 <div class="media">
-<div class="media-40 me-2 user-image">
-<img id="user-profile-pic" data-bs-toggle="offcanvas" data-bs-target="#onetap" aria-controls="onetap" src="user.webp" alt="profile-image" style="border-radius: 50%;">
+<div class="media-40 me-2 user-image" id="authenticated-modal">
+<img id="user-profile-pic" src="user.webp" alt="profile-image" style="border-radius: 50%;">
 </div>
 </div>
 <div class="offcanvas offcanvas-start" tabindex="1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
 <div class="offcanvas-body">
-	<span style="font-size: medium;">Welcome to Ramika Safaris & Tours,
-		<br> Sign up to browse, book and rate tours
-	</span>
+<span style="font-size: medium;">Welcome to Ramika Safaris & Tours,
+<br> Sign up to browse, book and rate tours
+</span>
 <br><br> &nbsp;&nbsp;&nbsp;&nbsp;	<a href="product-detail.html" style="background: black;padding: 8px;border-radius: 10px;color: aliceblue;"><i class="fab fa-google"></i>&nbsp; Register With Google Account</a>
 <br><br>
 <br><br>
@@ -261,115 +262,115 @@ My Account
 <h5 class="title font-w600">Discover Tours In Tanzania </h5>
 </div>
 <div class="row gx-3 gy-4">
-  
-  <div class="col-6">
-  <div class="dz-card style-1">
-  <div class="dz-media">
-  <a href="serengetidiscover.html">
-  <img src="serengeti4.jpg" alt="">
-  </a>
-  <a href="javascript:void(0);" class="item-bookmark">
-  <i class="feather icon-heart-on"></i>
-  </a>
-  </div>
-  <div class="dz-content">
-  <div class="inner-content">
-  <h6 class="title"><a href="serengetidiscover.html">Discover Pure WildLife</a></h6>
-  <div class="dz-meta">
-  <div class="dz-price"></div>
-  </div>
-  </div>
-  <a href="serengetidiscover.html" class="dz-icon icon-fill icon-xs"><i class="feather icon-arrow-right font-w600"></i></a>
-  </div>
-  </div>
-  </div>
-  <div class="col-6">
-  <div class="dz-card style-1">
-  <div class="dz-media">
-  <a href="ruahaadventure.html">
-  <img src="ruaha2.jpg" alt="">
-  </a>
-  <a href="javascript:void(0);" class="item-bookmark">
-  <i class="feather icon-heart-on"></i>
-  </a>
-  </div>
-  <div class="dz-content">
-  <div class="inner-content">
-  <h6 class="title"><a href="ruahaadventure.html">Different View In Ruaha</a></h6>
-  <div class="dz-meta">
-  <div class="dz-price"></div>
-  </div>
-  </div>
-  <a href="ruahadiscover.html" class="dz-icon icon-fill icon-xs"><i class="feather icon-arrow-right font-w600"></i></a>
-  </div>
-  </div>
-  </div>
-  <div class="col-6">
-  <div class="dz-card style-1">
-  <div class="dz-media">
-  <a href="stonetownhistory.html">
-  <img src="stonetown.jpg" alt="">
-  </a>
-  <a href="javascript:void(0);" class="item-bookmark">
-  <i class="feather icon-heart-on"></i>
-  </a>
-  </div>
-  <div class="dz-content">
-  <div class="inner-content">
-  <h6 class="title"><a href="isimilahistory.html">See Historical Sites</a></h6>
-  <div class="dz-meta">
-  <div class="dz-price"></div>
-  </div>
-  </div>
-  <a href="stonetownhistory.html" class="dz-icon icon-fill icon-xs"><i class="feather icon-arrow-right font-w600"></i></a>
-  </div>
-  </div>
-  </div>
-  <div class="col-6">
-    <div class="dz-card style-1">
-    <div class="dz-media">
-    <a href="butiamahistory.html">
-    <img src="butiama.jpg" alt="">
-    </a>
-    <a href="javascript:void(0);" class="item-bookmark">
-    <i class="feather icon-heart-on"></i>
-    </a>
-    </div>
-    <div class="dz-content">
-    <div class="inner-content">
-    <h6 class="title"><a href="butiamahistory.html">Butiama Town</a></h6>
-    <div class="dz-meta">
-    <div class="dz-price"></div>
-    </div>
-    </div>
-    <a href="butiamahistory.html" class="dz-icon icon-fill icon-xs"><i class="feather icon-arrow-right font-w600"></i></a>
-    </div>
-    </div>
-    </div>
 
-  <div class="col-6">
-    <div class="dz-card style-1">
-    <div class="dz-media">
-    <a href="product-detail.html">
-    <img src="chainjombe.jpg" alt="">
-    </a>
-    <a href="product-detail.html" class="item-bookmark">
-    <i class="feather icon-heart-on"></i>
-    </a>
-    </div>
-    <div class="dz-content">
-    <div class="inner-content">
-    <h6 class="title"><a href="kibenaadventure.html">Explore Kibena Tea Company</a></h6>
-    <div class="dz-meta">
-    <div class="dz-price"></div>
-    </div>
-    </div>
-    <a href="product-detail.html" class="dz-icon icon-fill icon-xs"><i class="feather icon-arrow-right font-w600"></i></a>
-    </div>
-    </div>
-    </div>
- 
-  </div>
+<div class="col-6">
+<div class="dz-card style-1">
+<div class="dz-media">
+<a href="serengetidiscover.html">
+<img src="serengeti4.jpg" alt="">
+</a>
+<a href="javascript:void(0);" class="item-bookmark">
+<i class="feather icon-heart-on"></i>
+</a>
+</div>
+<div class="dz-content">
+<div class="inner-content">
+<h6 class="title"><a href="serengetidiscover.html">Discover Pure WildLife</a></h6>
+<div class="dz-meta">
+<div class="dz-price"></div>
+</div>
+</div>
+<a href="serengetidiscover.html" class="dz-icon icon-fill icon-xs"><i class="feather icon-arrow-right font-w600"></i></a>
+</div>
+</div>
+</div>
+<div class="col-6">
+<div class="dz-card style-1">
+<div class="dz-media">
+<a href="ruahaadventure.html">
+<img src="ruaha2.jpg" alt="">
+</a>
+<a href="javascript:void(0);" class="item-bookmark">
+<i class="feather icon-heart-on"></i>
+</a>
+</div>
+<div class="dz-content">
+<div class="inner-content">
+<h6 class="title"><a href="ruahaadventure.html">Different View In Ruaha</a></h6>
+<div class="dz-meta">
+<div class="dz-price"></div>
+</div>
+</div>
+<a href="ruahadiscover.html" class="dz-icon icon-fill icon-xs"><i class="feather icon-arrow-right font-w600"></i></a>
+</div>
+</div>
+</div>
+<div class="col-6">
+<div class="dz-card style-1">
+<div class="dz-media">
+<a href="stonetownhistory.html">
+<img src="stonetown.jpg" alt="">
+</a>
+<a href="javascript:void(0);" class="item-bookmark">
+<i class="feather icon-heart-on"></i>
+</a>
+</div>
+<div class="dz-content">
+<div class="inner-content">
+<h6 class="title"><a href="isimilahistory.html">See Historical Sites</a></h6>
+<div class="dz-meta">
+<div class="dz-price"></div>
+</div>
+</div>
+<a href="stonetownhistory.html" class="dz-icon icon-fill icon-xs"><i class="feather icon-arrow-right font-w600"></i></a>
+</div>
+</div>
+</div>
+<div class="col-6">
+<div class="dz-card style-1">
+<div class="dz-media">
+<a href="butiamahistory.html">
+<img src="butiama.jpg" alt="">
+</a>
+<a href="javascript:void(0);" class="item-bookmark">
+<i class="feather icon-heart-on"></i>
+</a>
+</div>
+<div class="dz-content">
+<div class="inner-content">
+<h6 class="title"><a href="butiamahistory.html">Butiama Town</a></h6>
+<div class="dz-meta">
+<div class="dz-price"></div>
+</div>
+</div>
+<a href="butiamahistory.html" class="dz-icon icon-fill icon-xs"><i class="feather icon-arrow-right font-w600"></i></a>
+</div>
+</div>
+</div>
+
+<div class="col-6">
+<div class="dz-card style-1">
+<div class="dz-media">
+<a href="product-detail.html">
+<img src="chainjombe.jpg" alt="">
+</a>
+<a href="product-detail.html" class="item-bookmark">
+<i class="feather icon-heart-on"></i>
+</a>
+</div>
+<div class="dz-content">
+<div class="inner-content">
+<h6 class="title"><a href="kibenaadventure.html">Explore Kibena Tea Company</a></h6>
+<div class="dz-meta">
+<div class="dz-price"></div>
+</div>
+</div>
+<a href="product-detail.html" class="dz-icon icon-fill icon-xs"><i class="feather icon-arrow-right font-w600"></i></a>
+</div>
+</div>
+</div>
+
+</div>
 </div>
 
 </main>
@@ -405,29 +406,29 @@ My Account
 </div>
 <!-- Menubar -->
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="onetap" aria-labelledby="onetap">
-    <!--<button type="button" style="margin-left: 350px;" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="icon feather icon-x"></i></button>-->
-    <span style="background-color: rgb(158, 156, 152);border-radius: 20px;padding: 3px;width: 70px;margin-left: 45%;margin-top: 5px;"></span>
+<!--<button type="button" style="margin-left: 350px;" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="icon feather icon-x"></i></button>-->
+<span style="background-color: rgb(158, 156, 152);border-radius: 20px;padding: 3px;width: 70px;margin-left: 45%;margin-top: 5px;"></span>
 
-    <div class="offcanvas-body">
+<div class="offcanvas-body">
 
-        <div class="account-section">
-            <div class="section-head">
-                <h3 class="title" style="text-align: center;">OneTap Sign Up To Book Tours</h3>
-                <p style="text-align: center;">Choose Social Platform & We Will Sign You In Seconds!</p>
-            </div>
+<div class="account-section">
+<div class="section-head">
+<h3 class="title" style="text-align: center;">OneTap Sign Up To Book Tours</h3>
+<p style="text-align: center;">Choose Social Platform & We Will Sign You In Seconds!</p>
+</div>
 
-            <div class="social-btn-group">
-                <a href="javascript:void(0);" style="border-radius: 20px;" id="google" class="btn btn-lg btn-thin btn-primary w-100 font-16 gap-1"><img src="google-mail.svg" alt=""><span class="text-white">Register With Google Account</span></a>
-                <!--<a href="javascript:void(0);" class="btn w-100 gap-2 border"><i class="fab fa-facebook" style="font-size: larger;"></i> <span class="text-dark">Apple</span></a>-->
-            </div>
-            <br>
-            <div class="text-center mt-auto">Having a trouble? <a href="sign-up.html" class="text-underline font-w500">Troubleshoot your problem</a></div>
-        </div>
-        <div><a href="" style="font-size: 10px; margin-top: 10px;font-weight: 700;float: right;color: green;font-weight: bold;"><i class="fi fi-rr-lock"></i>100% Safe & Secured</a> </div>
-        <!--<div class="mb-2 input-group input-group-icon input-group">
-            <input type="password" id="password" class="form-control style-1 dz-password" placeholder="Type Password Here">
-        </div>-->
-    </div>
+<div class="social-btn-group">
+<a href="javascript:void(0);" style="border-radius: 20px;" id="google" class="btn btn-lg btn-thin btn-primary w-100 font-16 gap-1"><img src="google-mail.svg" alt=""><span class="text-white">Register With Google Account</span></a>
+<!--<a href="javascript:void(0);" class="btn w-100 gap-2 border"><i class="fab fa-facebook" style="font-size: larger;"></i> <span class="text-dark">Apple</span></a>-->
+</div>
+<br>
+<div class="text-center mt-auto">Having a trouble? <a href="sign-up.html" class="text-underline font-w500">Troubleshoot your problem</a></div>
+</div>
+<div><a href="" style="font-size: 10px; margin-top: 10px;font-weight: 700;float: right;color: green;font-weight: bold;"><i class="fi fi-rr-lock"></i>100% Safe & Secured</a> </div>
+<!--<div class="mb-2 input-group input-group-icon input-group">
+<input type="password" id="password" class="form-control style-1 dz-password" placeholder="Type Password Here">
+</div>-->
+</div>
 </div>
 
 
