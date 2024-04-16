@@ -43,7 +43,13 @@ const errorCode = error.code;
 const errorMessage = error.message;
 });
 });
-
+// Function to hide the Get Started button
+function hideGetStartedButton() {
+    var getStartedButton = document.getElementById("unauthenticated-modal");
+    if (getStartedButton) {
+        getStartedButton.style.display = "none";
+    }
+}
 // Listen for authentication state changes
 onAuthStateChanged(auth, (user) => {
 if (user) {
@@ -53,6 +59,8 @@ userEmailElement.textContent = user.email;
 userProfilePicElement.src = user.photoURL;
 authenticatedModal.style.display = "block";
 unauthenticatedModal.style.display = "none";
+    // Call the function to hide the Get Started button
+        hideGetStartedButton();
 } else {
 // User is signed out
 authenticatedModal.style.display = "none";
