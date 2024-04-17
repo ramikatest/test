@@ -6,67 +6,92 @@
 <title>Ramika Safaris & Tours</title>
 <script defer="" type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-apiKey: "AIzaSyCOVJY6BUHUBmzCT0fTwCFXjga21UCgliI",
-authDomain: "ramikatest-ff97c.firebaseapp.com",
-databaseURL: "https://ramikatest-ff97c-default-rtdb.firebaseio.com",
-projectId: "ramikatest-ff97c",
-storageBucket: "ramikatest-ff97c.appspot.com",
-messagingSenderId: "619432243067",
-appId: "1:619432243067:web:3241b65faa996b731cd7de"
+  apiKey: "AIzaSyCOVJY6BUHUBmzCT0fTwCFXjga21UCgliI",
+  authDomain: "ramikatest-ff97c.firebaseapp.com",
+  databaseURL: "https://ramikatest-ff97c-default-rtdb.firebaseio.com",
+  projectId: "ramikatest-ff97c",
+  storageBucket: "ramikatest-ff97c.appspot.com",
+  messagingSenderId: "619432243067",
+  appId: "1:619432243067:web:3241b65faa996b731cd7de"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 auth.languageCode = "en";
-const provider = new GoogleAuthProvider();
+
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
+
 const googleLogin = document.getElementById("google");
+const facebookLogin = document.getElementById("facebook");
+
 const userNameElement = document.getElementById("user-name");
 const userEmailElement = document.getElementById("user-email");
 const userProfilePicElement = document.getElementById("user-profile-pic");
 const authenticatedModal = document.getElementById("authenticated-modal");
 const unauthenticatedModal = document.getElementById("unauthenticated-modal");
 
-googleLogin.addEventListener("click", function () {
-signInWithPopup(auth, provider)
-.then((result) => {
-const credential = GoogleAuthProvider.credentialFromResult(result);
-const user = result.user;
-console.log(user);
-window.location.href = "https://ramikatest.github.io/test/index.html";
-}).catch((error) => {
-const errorCode = error.code;
-const errorMessage = error.message;
-});
-});
 // Function to hide the Get Started button
 function hideGetStartedButton() {
-    var getStartedButton = document.getElementById("unauthenticated-modal");
-    if (getStartedButton) {
-        getStartedButton.style.display = "none";
-    }
+  var getStartedButton = document.getElementById("unauthenticated-modal");
+  if (getStartedButton) {
+    getStartedButton.style.display = "none";
+  }
 }
+
+// Google sign-in event listener
+googleLogin.addEventListener("click", function() {
+  signInWithPopup(auth, googleProvider)
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+      window.location.href = "https://ramikatest.github.io/test/index.html";
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error(errorCode, errorMessage);
+    });
+});
+
+// Facebook sign-in event listener
+facebookLogin.addEventListener("click", function() {
+  signInWithPopup(auth, facebookProvider)
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+      window.location.href = "https://ramikatest.github.io/test/index.html";
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error(errorCode, errorMessage);
+    });
+});
+
 // Listen for authentication state changes
 onAuthStateChanged(auth, (user) => {
-if (user) {
-// User is signed in
-userNameElement.textContent = user.displayName;
-userEmailElement.textContent = user.email;
-userProfilePicElement.src = user.photoURL;
-authenticatedModal.style.display = "block";
-unauthenticatedModal.style.display = "none";
+  if (user) {
+    // User is signed in
+    userNameElement.textContent = user.displayName;
+    userEmailElement.textContent = user.email;
+    userProfilePicElement.src = user.photoURL;
+    authenticatedModal.style.display = "block";
+    unauthenticatedModal.style.display = "none";
     // Call the function to hide the Get Started button
-        hideGetStartedButton();
-} else {
-// User is signed out
-authenticatedModal.style.display = "none";
-unauthenticatedModal.style.display = "block";
-}
+    hideGetStartedButton();
+  } else {
+    // User is signed out
+    authenticatedModal.style.display = "none";
+    unauthenticatedModal.style.display = "block";
+  }
 });
+
 </script>
 
 <!-- Meta -->
@@ -153,7 +178,9 @@ unauthenticatedModal.style.display = "block";
 </div>
 <div class="mid-content">
 <a>
-<span id="unauthenticated-modal" data-bs-toggle="offcanvas" data-bs-target="#onetap" aria-controls="onetap"  style="margin-left: 50%;background-color: black;color: white;padding: 8px;border-radius: 20px;font-weight: 400;">Get Started &nbsp;<img src="google-mail.svg"> </span>
+<span id="unauthenticated-modal" data-bs-toggle="offcanvas" data-bs-target="#onetap" aria-controls="onetap"  style="margin-left: 50%;background-color: black;color: white;padding: 8px;border-radius: 20px;font-weight: 400;">Get Started &nbsp;<img src="google-mail.svg"> 
+
+<br><a href="product-detail.html" style="background: black;padding: 8px;border-radius: 10px;color: aliceblue;" id="facebook"><i class="fab fa-facebook"></i>&nbsp; Register With Facebook Account</a></span>
 </a>
 </div>
 <div class="right-content">
