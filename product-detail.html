@@ -4,78 +4,73 @@
 
 <!-- Title -->
 <title>Ramika Safaris & Tours Limited</title>
-<!-- Your HTML content, including modal elements and any other necessary markup -->
-<script defer="" type="module">
-	// Import Firebase modules
-	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
-	import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+<script type="module">
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+	import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+	import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
   
-	// Your Firebase project configuration
+	// Firebase configuration
 	const firebaseConfig = {
-	  apiKey: "AIzaSyCOVJY6BUHUBmzCT0fTwCFXjga21UCgliI",
-authDomain: "ramikatest-ff97c.firebaseapp.com",
-	  databaseURL: "https://ramikatest-ff97c-default-rtdb.firebaseio.com",
-	  projectId: "ramikatest-ff97c",
-	  storageBucket: "ramikatest-ff97c.appspot.com",
-	  messagingSenderId: "619432243067",
-	  appId: "1:619432243067:web:3241b65faa996b731cd7de"
+		apiKey: "AIzaSyCOVJY6BUHUBmzCT0fTwCFXjga21UCgliI",
+      authDomain: "ramikatest-ff97c.firebaseapp.com",
+      projectId: "ramikatest-ff97c",
+      storageBucket: "ramikatest-ff97c.appspot.com",
+      messagingSenderId: "619432243067",
+      appId: "1:619432243067:web:3241b65faa996b731cd7de"
 	};
   
 	// Initialize Firebase
-	const app = initializeApp(firebaseConfig);
-	const auth = getAuth(app); // Get authentication instance
+	const firebaseApp = initializeApp(firebaseConfig);
+	const db = getDatabase(firebaseApp);
+	const auth = getAuth(); // Get the authentication instance
   
-	// Function to hide the Get Started button
-	function hideGetStartedButton() {
-	  var getStartedButton = document.getElementById("unauthenticated-modal");
-	  if (getStartedButton) {
-		getStartedButton.style.display = "none";
-	  }
-	}
+	// Handle form submission
+	const bookingForm = document.getElementById('bookingForm');
+	const successMessage = document.getElementById('success-message');
   
 	// Listen for authentication state changes
 	onAuthStateChanged(auth, (user) => {
 	  if (user) {
-		// If user is signed in, show authenticated content
-		authenticatedModal.style.display = "block";
-		unauthenticatedModal.style.display = "none";
-		hideGetStartedButton(); // Hide Get Started button when user is signed in
+		// If user is authenticated, allow form submission
+		bookingForm.addEventListener('submit', handleFormSubmit);
 	  } else {
-		// If user is signed out, show unauthenticated content
-		authenticatedModal.style.display = "none";
-		unauthenticatedModal.style.display = "block";
+		// If user is not authenticated, prevent form submission
+		bookingForm.removeEventListener('submit', handleFormSubmit);
+		successMessage.textContent = 'Please sign in to submit a booking.';
 	  }
 	});
   
-	// Handle form submission
-	const submitButton = document.getElementById("submitBooking");
-	submitButton.addEventListener("click", function(event) {
-	  event.preventDefault(); // Prevent default form submission behavior
+	// Function to handle form submission
+	function handleFormSubmit(e) {
+	  e.preventDefault();
   
-	  // Get form input values
-	  const name = document.getElementById("name").value;
-	  const email = document.getElementById("email").value;
-	  const phone = document.getElementById("phone").value;
-	  const notes = document.getElementById("notes").value;
+	  const formData = new FormData(bookingForm);
+	  const name = formData.get('name');
+	  const email = formData.get('email');
+	  const whatsappNumber = formData.get('phone');
+	  const numberOfPeople = formData.get('notes');
   
-	  // Push user information to Firebase Realtime Database
-	  const database = firebase.database();
-	  database.ref("bookings").push({
+	  createBooking(name, email, whatsappNumber, numberOfPeople)
+		.then(() => {
+		  successMessage.textContent = 'Booking created successfully!';
+		  successMessage.style.display = 'block'; // Show the message
+		  bookingForm.reset();
+		})
+		.catch((error) => {
+		  successMessage.textContent = `Error creating booking: ${error.message}`;
+		});
+	}
+  
+	// Function to create a new booking
+	function createBooking(name, email, whatsappNumber, numberOfPeople) {
+	  const newBookingRef = push(ref(db, 'bookings'));
+	  return set(newBookingRef, {
 		name: name,
 		email: email,
-		phone: phone,
-		notes: notes
+		whatsappNumber: whatsappNumber,
+		numberOfPeople: numberOfPeople
 	  });
-      // After pushing user information to Firebase Realtime Database
-const successMessage = document.getElementById("success-message");
-successMessage.textContent = "Your booking has been submitted successfully!";
-  
-	  // Clear form fields after submission
-	  document.getElementById("name").value = "";
-	  document.getElementById("email").value = "";
-	  document.getElementById("phone").value = "";
-	  document.getElementById("notes").value = "";
-	});
+	}
   </script>
   
 <!-- Meta -->
@@ -322,40 +317,40 @@ No
 <span style="background-color: rgb(158, 156, 152);border-radius: 20px;padding: 3px;width: 70px;margin-left: 45%;margin-top: 5px;"></span>
 
 <div class="offcanvas-body">
-<div class="col-12">
-<div class="card style-1">
-<h3>In Hurry?!<br>Book This Tour Fast & Safe</h3>
-<div class="card-body">
-	<div class="mb-3">
-	  <label class="form-label" style="font-weight: bold;" for="name">Full Name</label>
-	  <input type="text" style="font-size: small;" id="name" placeholder="Enter Your Full Name" class="form-control style-1" required>
-	</div>
-	<div class="mb-3">
-	  <label class="form-label" style="font-weight: bold;" for="email">Email Address</label>
-	  <input type="email" id="email" style="font-size: small;" placeholder="Enter Your Email Address" class="form-control style-1" required>
-	</div>
-	<div class="mb-4">
-	  <label class="form-label" style="font-weight: bold;" for="phone">WhatsApp No.</label>
-	  <input type="tel" style="font-size: small;" id="phone" class="form-control style-1" required>
-	</div>
-	<div class="mb-3">
-	  <label class="form-label" style="font-weight: bold;" for="notes">No. of adults and children going to the tour</label>
-	  <textarea class="form-control style-1 dz-textarea" name="notes" id="notes" rows="4" placeholder="Write Here"></textarea>
-	</div>
-  
-	<button type="submit" class="btn btn-lg btn-thin btn-primary w-100 font-16 gap-1" id="submitBooking">Submit Booking</button>
-	<div id="success-message"></div>
-
-	<div>
-	  <a href="" style="font-size: 10px; margin-top: 10px; opacity: .7; font-weight: 700; float: right;">
-		<i class="fi fi-rr-rocket-lunch"></i> Powered By Flash Booking
-	  </a>
+	<div class="col-12">
+	  <div class="card style-1">
+		<h3>In Hurry?!<br>Book This Tour Fast & Safe</h3>
+		<div class="card-body">
+		  <form id="bookingForm">
+			<div class="mb-3">
+			  <label class="form-label" style="font-weight: bold;" for="name">Full Name</label>
+			  <input type="text" style="font-size: small;" id="name" name="name" placeholder="Enter Your Full Name" class="form-control style-1" required>
+			</div>
+			<div class="mb-3">
+			  <label class="form-label" style="font-weight: bold;" for="email">Email Address</label>
+			  <input type="email" id="email" name="email" style="font-size: small;" placeholder="Enter Your Email Address" class="form-control style-1" required>
+			</div>
+			<div class="mb-4">
+			  <label class="form-label" style="font-weight: bold;" for="phone">WhatsApp No.</label>
+			  <input type="tel" style="font-size: small;" id="phone" name="phone" class="form-control style-1" required>
+			</div>
+			<div class="mb-3">
+			  <label class="form-label" style="font-weight: bold;" for="notes">No. of adults and children going to the tour</label>
+			  <textarea class="form-control style-1 dz-textarea" name="notes" id="notes" rows="4" placeholder="Write Here" required></textarea>
+			</div>
+			<button type="submit" class="btn btn-lg btn-thin btn-primary w-100 font-16 gap-1" id="submitBooking">Submit Booking</button>
+		  </form>
+		  <div id="success-message"></div>
+		  <div>
+			<a href="" style="font-size: 10px; margin-top: 10px; opacity: .7; font-weight: 700; float: right;">
+			  <i class="fi fi-rr-rocket-lunch"></i> Powered By Flash Booking
+			</a>
+		  </div>
+		</div>
+	  </div>
 	</div>
   </div>
   
-</div>
-</div>
-</div>
 </div>
 <!-- Offcanvas Left -->
 <!-- Offcanvas Left -->
