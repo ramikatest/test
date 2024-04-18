@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,94 +5,73 @@
 <!-- Title -->
 <title>Ramika Safaris & Tours Limited</title>
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-  import { getDatabase, ref, push, set, orderByChild, equalTo, once } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-
-  // Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyCOVJY6BUHUBmzCT0fTwCFXjga21UCgliI",
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+	import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+	import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+  
+	// Firebase configuration
+	const firebaseConfig = {
+		apiKey: "AIzaSyCOVJY6BUHUBmzCT0fTwCFXjga21UCgliI",
       authDomain: "ramikatest-ff97c.firebaseapp.com",
       projectId: "ramikatest-ff97c",
       storageBucket: "ramikatest-ff97c.appspot.com",
       messagingSenderId: "619432243067",
       appId: "1:619432243067:web:3241b65faa996b731cd7de"
-  };
-
-  // Initialize Firebase
-  const firebaseApp = initializeApp(firebaseConfig);
-  const db = getDatabase(firebaseApp);
-  const auth = getAuth(); // Get the authentication instance
-
-  // Handle form submission
-  const bookingForm = document.getElementById('bookingForm');
-  const successMessage = document.getElementById('success-message');
-
-  // Listen for authentication state changes
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // If user is authenticated, allow form submission
-      bookingForm.addEventListener('submit', handleFormSubmit);
-    } else {
-      // If user is not authenticated, prevent form submission
-      bookingForm.removeEventListener('submit', handleFormSubmit);
-      successMessage.textContent = 'Please sign in to submit a booking.';
-    }
-  });
-
-  // Function to handle form submission
-  function handleFormSubmit(e) {
-    e.preventDefault();
-
-    // Check if the user has already submitted a booking
-    const userId = auth.currentUser.uid;
-    checkPreviousBooking(userId).then((hasPreviousBooking) => {
-      if (!hasPreviousBooking) {
-        // If the user hasn't submitted a booking, proceed with submission
-        const formData = new FormData(bookingForm);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const whatsappNumber = formData.get('phone');
-        const numberOfPeople = formData.get('notes');
-
-        createBooking(name, email, whatsappNumber, numberOfPeople)
-          .then(() => {
-            successMessage.textContent = 'Booking created successfully!';
-            successMessage.style.display = 'block'; // Show the message
-            bookingForm.reset();
-          })
-          .catch((error) => {
-            successMessage.textContent = `Error creating booking: ${error.message}`;
-          });
-      } else {
-        // If the user has already submitted a booking, display an error message
-        successMessage.textContent = 'You have already submitted a booking.';
-      }
-    });
-  }
-
-  // Function to check if the user has previously submitted a booking
-  function checkPreviousBooking(userId) {
-    const bookingsRef = ref(db, 'bookings');
-    const userBookingsQuery = orderByChild('userId').equalTo(userId);
-    return once(userBookingsQuery).then((snapshot) => {
-      return snapshot.exists();
-    });
-  }
-
-  // Function to create a new booking
-  function createBooking(name, email, whatsappNumber, numberOfPeople) {
-    const userId = auth.currentUser.uid; // Get the current user's ID
-    const newBookingRef = push(ref(db, 'bookings'));
-    return set(newBookingRef, {
-      name: name,
-      email: email,
-      whatsappNumber: whatsappNumber,
-      numberOfPeople: numberOfPeople,
-      userId: userId // Save the user's ID with the booking
-    });
-  }
-</script>
+	};
+  
+	// Initialize Firebase
+	const firebaseApp = initializeApp(firebaseConfig);
+	const db = getDatabase(firebaseApp);
+	const auth = getAuth(); // Get the authentication instance
+  
+	// Handle form submission
+	const bookingForm = document.getElementById('bookingForm');
+	const successMessage = document.getElementById('success-message');
+  
+	// Listen for authentication state changes
+	onAuthStateChanged(auth, (user) => {
+	  if (user) {
+		// If user is authenticated, allow form submission
+		bookingForm.addEventListener('submit', handleFormSubmit);
+	  } else {
+		// If user is not authenticated, prevent form submission
+		bookingForm.removeEventListener('submit', handleFormSubmit);
+		successMessage.textContent = 'Please sign in to submit a booking.';
+	  }
+	});
+  
+	// Function to handle form submission
+	function handleFormSubmit(e) {
+	  e.preventDefault();
+  
+	  const formData = new FormData(bookingForm);
+	  const name = formData.get('name');
+	  const email = formData.get('email');
+	  const whatsappNumber = formData.get('phone');
+	  const numberOfPeople = formData.get('notes');
+  
+	  createBooking(name, email, whatsappNumber, numberOfPeople)
+		.then(() => {
+		  successMessage.textContent = 'Booking created successfully!';
+		  successMessage.style.display = 'block'; // Show the message
+		  bookingForm.reset();
+		})
+		.catch((error) => {
+		  successMessage.textContent = `Error creating booking: ${error.message}`;
+		});
+	}
+  
+	// Function to create a new booking
+	function createBooking(name, email, whatsappNumber, numberOfPeople) {
+	  const newBookingRef = push(ref(db, 'bookings'));
+	  return set(newBookingRef, {
+		name: name,
+		email: email,
+		whatsappNumber: whatsappNumber,
+		numberOfPeople: numberOfPeople
+	  });
+	}
+  </script>
   
 <!-- Meta -->
 <meta charset="utf-8">
