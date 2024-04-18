@@ -11,12 +11,12 @@
   
 	// Firebase configuration
 	const firebaseConfig = {
-		apiKey: "AIzaSyCOVJY6BUHUBmzCT0fTwCFXjga21UCgliI",
-      authDomain: "ramikatest-ff97c.firebaseapp.com",
-      projectId: "ramikatest-ff97c",
-      storageBucket: "ramikatest-ff97c.appspot.com",
-      messagingSenderId: "619432243067",
-      appId: "1:619432243067:web:3241b65faa996b731cd7de"
+	  apiKey: "YOUR_API_KEY",
+	  authDomain: "YOUR_AUTH_DOMAIN",
+	  projectId: "YOUR_PROJECT_ID",
+	  storageBucket: "YOUR_STORAGE_BUCKET",
+	  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+	  appId: "YOUR_APP_ID"
 	};
   
 	// Initialize Firebase
@@ -26,7 +26,6 @@
   
 	// Handle form submission
 	const bookingForm = document.getElementById('bookingForm');
-	const successMessage = document.getElementById('success-message');
   
 	// Listen for authentication state changes
 	onAuthStateChanged(auth, (user) => {
@@ -36,7 +35,7 @@
 	  } else {
 		// If user is not authenticated, prevent form submission
 		bookingForm.removeEventListener('submit', handleFormSubmit);
-		successMessage.textContent = 'Please sign in to submit a booking.';
+		alert('Please sign in to submit a booking.');
 	  }
 	});
   
@@ -52,12 +51,12 @@
   
 	  createBooking(name, email, whatsappNumber, numberOfPeople)
 		.then(() => {
-		  successMessage.textContent = 'Booking created successfully!';
-		  successMessage.style.display = 'block'; // Show the message
+		  // Show success modal
+		  document.getElementById('qwefpd').style.display = 'block';
 		  bookingForm.reset();
 		})
 		.catch((error) => {
-		  successMessage.textContent = `Error creating booking: ${error.message}`;
+		  alert(`Error creating booking: ${error.message}`);
 		});
 	}
   
@@ -72,6 +71,12 @@
 	  });
 	}
   </script>
+  <script>
+	function closeModal() {
+	  document.getElementById('qwefpd').style.display = 'none';
+	}
+  </script>
+  
   
 <!-- Meta -->
 <meta charset="utf-8">
@@ -353,6 +358,22 @@ No
   
 </div>
 <!-- Offcanvas Left -->
+<div class="modal fade" style="border-radius: 30px;" id="qwefpd" style="display: none;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+	<div class="modal-content">
+	<div class="modal-header">
+	<h1 class="modal-title fs-5" id="staticBackdropLabel">Welcome Back!<span id="user-email"></span></h1>
+	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	</div>
+	<div class="modal-body">Hey! We are happy to have you back, you might have missed some of the current ongoing bookings. Take a minute to fast check them</div>
+	<div class="modal-footer">
+	  <a data-bs-dismiss="modal"> <button type="button" class="btn btn-sm btn-secondary">Close</button></a>
+	
+	<a href="product-detail.html"> <button type="button" class="btn btn-sm btn-primary">Book Now</button></a>
+	</div>
+	</div>
+	</div>
+	</div>
 <!-- Offcanvas Left -->
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="onetap" aria-labelledby="onetap">
 	<!--<button type="button" style="margin-left: 350px;" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="icon feather icon-x"></i></button>
