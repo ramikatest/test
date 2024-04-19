@@ -24,6 +24,7 @@
     const auth = getAuth(app);
     auth.languageCode = "en";
     const provider = new GoogleAuthProvider();
+	    const userNameElement = document.getElementById("user-name2");
     const googleLogin = document.getElementById("google");
     const userNameElement = document.getElementById("user-name");
     const userEmailElement = document.getElementById("user-email");
@@ -149,7 +150,7 @@
 <div class="media-40 me-2 user-image">
 <img src="user.webp" alt="profile-image">
 </div>
-<h4 class="name mb-0"><span class="greetings">Hello,</span> <b class="font-w600" id="user-name"></b></h4>
+<h4 class="name mb-0"><span class="greetings">Hello,</span> <b class="font-w600" id="user-name2"></b></h4>
 </div>
 </div>
 <div class="content-box">
