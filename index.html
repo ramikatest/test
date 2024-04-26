@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<!-- Title -->
 <title>Ramika Safaris & Tours</title>
 <script defer="" type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
 apiKey: "AIzaSyCOVJY6BUHUBmzCT0fTwCFXjga21UCgliI",
 authDomain: "ramikatest-ff97c.firebaseapp.com",
@@ -18,8 +14,6 @@ storageBucket: "ramikatest-ff97c.appspot.com",
 messagingSenderId: "619432243067",
 appId: "1:619432243067:web:3241b65faa996b731cd7de"
 };
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 auth.languageCode = "en";
@@ -30,7 +24,6 @@ const userEmailElement = document.getElementById("user-email");
 const userProfilePicElement = document.getElementById("user-profile-pic");
 const authenticatedModal = document.getElementById("authenticated-modal");
 const unauthenticatedModal = document.getElementById("unauthenticated-modal");
-
 googleLogin.addEventListener("click", function () {
 signInWithPopup(auth, provider)
 .then((result) => {
@@ -43,17 +36,14 @@ const errorCode = error.code;
 const errorMessage = error.message;
 });
 });
-// Function to hide the Get Started button
 function hideGetStartedButton() {
     var getStartedButton = document.getElementById("unauthenticated-modal");
     if (getStartedButton) {
         getStartedButton.style.display = "none";
     }
 }
-// Listen for authentication state changes
 onAuthStateChanged(auth, (user) => {
 if (user) {
-// User is signed in
 userNameElement.textContent = user.displayName;
 userEmailElement.textContent = user.email;
 userProfilePicElement.src = user.photoURL;
@@ -189,11 +179,11 @@ unauthenticatedModal.style.display = "block";
 </div>
 <div class="right-content">
 
-<div class="media">
+<!--<div class="media">
 <div class="media-40 me-2 user-image" id="authenticated-modal">
 <img id="user-profile-pic" src="user.webp" alt="profile-image" style="border-radius: 50%;">
 </div>
-</div>
+</div>-->
 
 </div>
 </div>
@@ -222,22 +212,23 @@ unauthenticatedModal.style.display = "block";
 <div class="modal-body">Hey! We are happy to have you back, you might have missed some of the current ongoing bookings. Take a minute to fast check them</div>
 <div class="modal-footer">
   <a data-bs-dismiss="modal"> <button type="button" class="btn btn-sm btn-secondary">Close</button></a>
-
+&nbsp;&nbsp;
 <a href="product-detail.html"> <button type="button" class="btn btn-sm btn-primary">Book Now</button></a>
 </div>
 </div>
 </div>
 </div>
 
-<!-- Banner Start -->
-<div class="dz-banner" style="padding: 8px; height: 200px; border-radius: 20px;background-image:url(chainext.jpg);">
-  <h4>Hi <span id="user-name"> </span>, Welcome To Ramika Safaris & Tours</h4>
-  <p style="margin-bottom: 0px;">Visit Njombe region and southern highlands in Tanzania to see the various tourism attractions,arts and historical arcfacts.</p>
-  <a href="category.html"> <button type="button" class="btn btn-sm btn-primary">See All Discover</button></a> 
-  </div>
+<!-- Banner Start -- -->
+<div class="dz-banner" style="padding: 8px; height: 200px; border-radius: 20px;background-image:url(ramikadirector.png);background-size: 167px;background-position: right;background-repeat: no-repeat;">
+ <div class="content text-left">
+  <h6 style="margin-bottom: 0px;">The Director's Message</h6>
+  <p>Visit Njombe region and southern<br> highlands in Tanzania to see<br> various tourism attractions,<br>arts and historical arcfacts.</p>
+  <a href="faq.html"> <button type="button" class="btn btn-sm btn-primary">Read More </button></a> 
+</div></div>
   <!-- Banner End -->
-  
-<br>
+  <br>
+
 <!-- Products -->
 <div class="dz-box">
 <div class="title-bar">
@@ -342,7 +333,7 @@ unauthenticatedModal.style.display = "block";
 </div>
 <div class="dz-content">
 <div class="inner-content">
-<h6 class="title"><a href="kibenaadventure.html">Explore Kibena Tea Company</a></h6>
+<h6 class="title"><a href="kibenaadventure.html">Explore Njombe Tea Plantation</a></h6>
 <div class="dz-meta">
 <div class="dz-price"></div>
 </div>
@@ -404,7 +395,7 @@ unauthenticatedModal.style.display = "block";
 <!--<a href="javascript:void(0);" class="btn w-100 gap-2 border"><i class="fab fa-facebook" style="font-size: larger;"></i> <span class="text-dark">Apple</span></a>-->
 </div>
 <br>
-<div class="text-center mt-auto">Having a trouble? <a href="sign-up.html" class="text-underline font-w500">Troubleshoot your problem</a></div>
+<div class="text-center mt-auto">Having a trouble? <a href="contacts.html" class="text-underline font-w500">Troubleshoot your problem</a></div>
 </div>
 <div><a href="" style="font-size: 10px; margin-top: 10px;font-weight: 700;float: right;color: green;font-weight: bold;"><i class="fi fi-rr-lock"></i>100% Safe & Secured</a> </div>
 <!--<div class="mb-2 input-group input-group-icon input-group">
@@ -476,7 +467,7 @@ setTimeout(showModal, 2 * 24 * 60 * 60 * 1000 - timeDifference);
 
         // Now you can show the full content
         document.querySelector('.page-wrapper').style.display = 'block';
-    }, 1500);
+    }, 1020);
 
 </script>
 
