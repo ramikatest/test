@@ -98,6 +98,51 @@ unauthenticatedModal.style.display = "block";
 <!-- Stylesheets -->
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 <style>
+    .custom-banner {
+  margin: 20px;
+  /* Adjust margin as needed */
+}
+
+.custom-card {
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.custom-media {
+  position: relative;
+}
+
+.custom-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.custom-link {
+  display: block;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(2px);
+}
+
+.custom-heading {
+  color: #000;
+  font-size: 24px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin-bottom: 0;
+}
+
+.custom-message {
+  color: #333;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.custom-user {
+  font-weight: 900;
+}
+
 .preloader {
 position: fixed;
 top: 0;
@@ -198,19 +243,20 @@ text-align: center;
 <main class="page-content space-top p-b70">
 <div class="container overflow-hidden">
 <!-- Products -->
-<div class="dz-box">
-<div class="dz-card style-1">
-<div class="dz-media">
-<a href="#">
-<img src="chainjombe.jpg" alt="">
-</a>
-<a href="#;" class="item-bookmark2" style="height:100%;padding:5px;background-image: linear-gradient(to bottom  , rgb(255, 255, 255),rgba(255, 255, 255, 0.349));backdrop-filter: blur(2px);width: 100%;">
-<p style="color: rgb(0, 0, 0); text-align: left; font-size: xx-large;margin-bottom: 0px;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;line-height: 1;" >Enjoy Unforgettable Safari Experience with us, Ramika Safaris & Tours.</p>
-<span class="font-w300" style="text-align: left;line-height: 1;">Hi <span class="font-w900" id="user-name"></span> We Value Your Privacy <i class="fa fa-lock" style="color: green;"></i> </span>
-</a>
-</div>
-</div>
-</div>
+<div class="custom-banner">
+    <div class="custom-card">
+      <div class="custom-media">
+        <a href="#">
+          <img src="chainjombe.jpg" alt="">
+        </a>
+        <a href="#;" class="custom-link">
+          <p class="custom-heading">Enjoy Unforgettable Safari Experience with us, Ramika Safaris & Tours.</p>
+          <span class="custom-message">Hi <span class="custom-user">[Your Name]</span>, We Value Your Privacy <i class="fa fa-lock" style="color: green;"></i></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
 <!-- Modal -->
 <div class="modal fade" style="border-radius: 30px;" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered">
